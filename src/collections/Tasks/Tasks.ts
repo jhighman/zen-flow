@@ -107,6 +107,83 @@ import {
         ],
         required: true,
       },
+      {
+        name: 'workflowId',
+        label: 'Workflow ID',
+        type: 'text',
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'priority',
+        label: 'Priority',
+        type: 'select',
+        options: [
+          { label: 'High', value: 'high' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'Low', value: 'low' },
+          { label: 'Critical', value: 'critical' },
+        ],
+        required: true,
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'select',
+        options: [
+          { label: 'Problem', value: 'problem' },
+          { label: 'Issue', value: 'issue' },
+          { label: 'Ticket', value: 'ticket' },
+          { label: 'Blocked', value: 'blocked' },
+          { label: 'Development', value: 'development' },
+          { label: 'Security', value: 'security' },
+          { label: 'Research', value: 'research' },
+          { label: 'Personal', value: 'personal' },
+        ],
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'isStarted',
+        label: 'Is Started?',
+        type: 'checkbox',
+        defaultValue: false,
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'isComplete',
+        label: 'Is Complete?',
+        type: 'checkbox',
+        defaultValue: false,
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'isPending',
+        label: 'Is Pending?',
+        type: 'checkbox',
+        defaultValue: true, // Assuming tasks are pending by default
+        admin: {
+          position: 'sidebar',
+        },
+      },
+      {
+        name: 'isArchived',
+        label: 'Is Archived?',
+        type: 'checkbox',
+        defaultValue: false,
+        admin: {
+          position: 'sidebar',
+        },
+      },
       // Other fields as necessary, adjust according to your task management needs.
     ],
   }

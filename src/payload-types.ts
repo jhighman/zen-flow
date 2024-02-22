@@ -41,13 +41,21 @@ export interface User {
 }
 export interface Task {
   id: string;
-  user?: (string | null) | User;
-  name: string;
-  description?: string | null;
-  category: 'license_verification' | 'education_verification' | 'certification_verification' | 'asset_verification';
-  status: 'pending' | 'in_progress' | 'completed' | 'on_hold';
-  updatedAt: string;
-  createdAt: string;
+  user?: (string | null) | User; // The user assigned to the task
+  name: string; // The name of the task
+  description?: string | null; // Details about the task
+  category: 'license_verification' | 'education_verification' | 'certification_verification' | 'asset_verification'; // Task categories based on your model
+  status: 'pending' | 'in_progress' | 'completed' | 'on_hold'; // The current status of the task
+  updatedAt: string; // Last update timestamp
+  createdAt: string; // Creation timestamp
+  workflowId: string; // Identifier for the workflow this task is part of
+  priority: 'high' | 'medium' | 'low' | 'critical'; // Priority level of the task
+  label: 'problem' | 'issue' | 'ticket' | 'blocked' | 'development' | 'security' | 'research' | 'personal'; // Label categorizing the task
+  isStarted: boolean; // Flag indicating if the task has been started
+  isComplete: boolean; // Flag indicating if the task has been completed
+  isPending: boolean; // Flag indicating if the task is pending action
+  isArchived: boolean; // Flag indicating if the task has been archived
+  image?: Media;
 }
 export interface Product {
   id: string;

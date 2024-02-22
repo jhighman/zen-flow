@@ -33,8 +33,10 @@ const TaskListing = ({
     ({ value }) => value === task.category
   )?.label
 
-  // Assuming tasks can have images similar to products
-  const validUrls = task.image ? [task.image.url] : []
+// Assuming tasks can have images similar to products
+// Ensure only strings are included in validUrls by filtering out null or undefined
+const validUrls = task.image ? [task.image.url].filter(Boolean) : [];
+
 
   if (isVisible && task) {
     return (
@@ -47,7 +49,6 @@ const TaskListing = ({
         )}
         href={`/task/${task.id}`}>
         <div className='flex flex-col w-full'>
-          {validUrls.length > 0 && <ImageSlider urls={validUrls} />}
 
           <h3 className='mt-4 font-medium text-sm text-gray-700'>
             {task.name}
