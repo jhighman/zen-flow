@@ -85,6 +85,27 @@ const start = async () => {
   })
 
   app.use('/cart', cartRouter)
+
+  // New Queue Router
+  const queueRouter = express.Router()
+  queueRouter.use(payload.authenticate) // Use Payload's authentication middleware
+
+  queueRouter.get('/', (req, res) => {
+    const request = req as PayloadRequest
+
+    if (!request.user)
+      return res.redirect('/sign-in?origin=queue') // Redirect to sign-in if not authenticated
+
+    const parsedUrl = parse(req.url, true)
+    const { query } = parsedUrl
+
+    return nextApp.render(req, res, '/queue', query) // Render queue page with Next.js
+  })
+
+  // Register Queue Router
+  app.use('/queue', queueRouter)
+
+
   app.use(
     '/api/trpc',
     trpcExpress.createExpressMiddleware({

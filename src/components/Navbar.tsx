@@ -8,6 +8,7 @@ import { getServerSideUser } from '@/lib/payload-utils'
 import { cookies } from 'next/headers'
 import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
+import Queue from './Queue'
 
 const Navbar = async () => {
   const nextCookies = cookies()
@@ -79,7 +80,7 @@ const Navbar = async () => {
                   )}
 
                   <div className='ml-4 flow-root lg:ml-6'>
-                    <Cart />
+                    <Queue />
                   </div>
                 </div>
               </div>

@@ -13,6 +13,8 @@ export interface Config {
     media: Media;
     product_files: ProductFile;
     orders: Order;
+    tasks: Task;
+    queues: Queue;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -20,6 +22,7 @@ export interface Config {
 }
 export interface User {
   id: string;
+  tasks?: (string | Task)[] | null;
   products?: (string | Product)[] | null;
   product_files?: (string | ProductFile)[] | null;
   role: 'admin' | 'user';
@@ -35,6 +38,16 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+export interface Task {
+  id: string;
+  user?: (string | null) | User;
+  name: string;
+  description?: string | null;
+  category: 'license_verification' | 'education_verification' | 'certification_verification' | 'asset_verification';
+  status: 'pending' | 'in_progress' | 'completed' | 'on_hold';
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Product {
   id: string;
@@ -109,6 +122,14 @@ export interface Order {
   _isPaid: boolean;
   user: string | User;
   products: (string | Product)[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Queue {
+  id: string;
+  _isPaid: boolean;
+  user: string | User;
+  tasks: (string | Task)[];
   updatedAt: string;
   createdAt: string;
 }

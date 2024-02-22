@@ -36,6 +36,16 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'tasks',
+      label: 'Tasks',
+      admin: {
+        condition: () => false,
+      },
+      type: 'relationship',
+      relationTo: 'tasks',
+      hasMany: true,
+    },    
+    {
       name: 'products',
       label: 'Products',
       admin: {

@@ -86,3 +86,70 @@ export const MENU_SELECTION = [
     ],
   },
 ];
+
+export const TASK_CATEGORIES = [
+  {
+    label: 'License Verification',
+    value: 'license_verification',
+    featured: [
+      {
+        name: 'Professional Licenses',
+        ref: `/tasks?category=license_verification&type=professional`,
+        imageSrc: '/nav/tasks/professional-licenses.jpg',
+      },
+      {
+        name: 'Business Licenses',
+        ref: '/tasks?category=license_verification&type=business',
+        imageSrc: '/nav/tasks/business-licenses.jpg',
+      },
+    ],
+  },
+  {
+    label: 'Education Verification',
+    value: 'education_verification',
+    featured: [
+      {
+        name: 'Degree Confirmation',
+        ref: `/tasks?category=education_verification&type=degree`,
+        imageSrc: '/nav/tasks/degree-confirmation.jpg',
+      },
+      {
+        name: 'Institution Accreditation',
+        ref: '/tasks?category=education_verification&type=accreditation',
+        imageSrc: '/nav/tasks/institution-accreditation.jpg',
+      },
+    ],
+  },
+  {
+    label: 'Certification Verification',
+    value: 'certification_verification',
+    featured: [
+      {
+        name: 'Professional Certifications',
+        ref: `/tasks?category=certification_verification&type=professional`,
+        imageSrc: '/nav/tasks/professional-certifications.jpg',
+      },
+      {
+        name: 'Technical Certifications',
+        ref: '/tasks?category=certification_verification&type=technical',
+        imageSrc: '/nav/tasks/technical-certifications.jpg',
+      },
+    ],
+  },
+  {
+    label: 'Asset Verification',
+    value: 'asset_verification',
+    featured: [
+      {
+        name: 'Real Estate',
+        ref: `/tasks?category=asset_verification&type=real_estate`,
+        imageSrc: '/nav/tasks/real-estate.jpg',
+      },
+      {
+        name: 'Vehicle Ownership',
+        ref: '/tasks?category=asset_verification&type=vehicle',
+        imageSrc: '/nav/tasks/vehicle-ownership.jpg',
+      },
+    ],
+  },
+]
