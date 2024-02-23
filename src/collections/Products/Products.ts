@@ -2,7 +2,6 @@ import {
   AfterChangeHook,
   BeforeChangeHook,
 } from 'payload/dist/collections/config/types'
-import { PRODUCT_CATEGORIES } from '../../config'
 import { Access, CollectionConfig } from 'payload/types'
 import { Product, User } from '../../payload-types'
 import { stripe } from '../../lib/stripe'
@@ -166,9 +165,7 @@ export const Products: CollectionConfig = {
       name: 'category',
       label: 'Category',
       type: 'select',
-      options: PRODUCT_CATEGORIES.map(
-        ({ label, value }) => ({ label, value })
-      ),
+      options: ['a','b','c'],
       required: true,
     },
     {
