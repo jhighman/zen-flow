@@ -1,44 +1,50 @@
 
 export const MENU_SELECTION = [
   {
-    label: 'Claims',
+    label: 'Actions Available',
     value: 'claim_kits',
     items: [ // Changed from 'featured' to 'items'
       {
         name: 'New',
         href: '/claims?category=ui_kits',
         imageSrc: '/nav/icons/icons8-new-30.png',
+        action:"Start a new verification",
       },
       {
         name: 'Pending',
         href: '/claims?category=ui_kits&sort=desc',
         imageSrc: '/nav/icons/icons8-pending-50.png',
+        action:"Review Pending Verifications",
       },
       {
         name: 'Complete',
         href: '/claims?category=ui_kits',
         imageSrc: '/nav/icons/icons8-complete-50.png',
+        action:"Review Completed Verifications",
       },
     ],
   },
   {
-    label: 'Verifications',
+    label: 'Coming Soon',
     value: 'icons',
     items: [ // Changed from 'featured' to 'items'
       {
         name: 'Pending',
         href: '/claims?category=icons',
         imageSrc: '/nav/icons/icons8-evidence-50.png',
+        action:"XXX",
       },
       {
         name: 'Issued',
         href: '/claims?category=icons&sort=desc',
         imageSrc: '/nav/icons/icons8-publish-80.png',
+        action:"XXX",
       },
       {
         name: 'Complete',
         href: '/claims?category=icons',
         imageSrc: '/nav/icons/icons8-complete-50.png',
+        action:"XXX",
       },
     ],
   },
