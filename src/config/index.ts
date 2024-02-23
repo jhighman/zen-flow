@@ -1,54 +1,60 @@
-
 export const MENU_SELECTION = [
   {
     label: 'Actions Available',
     value: 'claim_kits',
-    items: [ // Changed from 'featured' to 'items'
+    items: [
       {
         name: 'New',
         href: '/claims?category=ui_kits',
         imageSrc: '/nav/icons/icons8-new-30.png',
-        action:"Start a new verification",
+        action: "Start a new verification",
+        requiredRoles: [] // Empty array for required roles
       },
       {
         name: 'Pending',
         href: '/claims?category=ui_kits&sort=desc',
         imageSrc: '/nav/icons/icons8-pending-50.png',
-        action:"Review Pending Verifications",
+        action: "Review Pending Verifications",
+        requiredRoles: [] // Empty array for required roles
       },
       {
         name: 'Complete',
         href: '/claims?category=ui_kits',
         imageSrc: '/nav/icons/icons8-complete-50.png',
-        action:"Review Completed Verifications",
+        action: "Review Completed Verifications",
+        requiredRoles: [] // Empty array for required roles
       },
     ],
   },
   {
     label: 'Coming Soon',
     value: 'icons',
-    items: [ // Changed from 'featured' to 'items'
+    items: [
       {
         name: 'Pending',
         href: '/claims?category=icons',
         imageSrc: '/nav/icons/icons8-evidence-50.png',
-        action:"XXX",
+        action: "XXX",
+        requiredRoles: [] // Empty array for required roles
       },
       {
         name: 'Issued',
         href: '/claims?category=icons&sort=desc',
         imageSrc: '/nav/icons/icons8-publish-80.png',
-        action:"XXX",
+        action: "XXX",
+        requiredRoles: [] // Empty array for required roles
       },
       {
         name: 'Complete',
         href: '/claims?category=icons',
         imageSrc: '/nav/icons/icons8-complete-50.png',
-        action:"XXX",
+        action: "XXX",
+        requiredRoles: [] // Empty array for required roles
       },
     ],
   },
 ];
+
 
 export const TASK_CATEGORIES = [
   {
