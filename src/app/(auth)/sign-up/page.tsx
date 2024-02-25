@@ -1,6 +1,5 @@
 'use client'
 
-import { Icons } from '@/components/Icons'
 import {
   Button,
   buttonVariants,
@@ -21,6 +20,7 @@ import { trpc } from '@/trpc/client'
 import { toast } from 'sonner'
 import { ZodError } from 'zod'
 import { useRouter } from 'next/navigation'
+import { Icons } from '@/components/Icons'
 
 const Page = () => {
   const {
