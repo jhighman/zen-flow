@@ -5,7 +5,7 @@ import { MENU_SELECTION } from '@/config' // Adjust the path as necessary
 import { useOnClickOutside } from '@/hooks/use-on-click-outside'
 import { useEffect, useRef, useState } from 'react'
 import NavItem from './NavItem'
-import { User } from '@/lib/payload-types'; 
+import { User } from '@/payload-types'
 
 
 interface NavItemsProps {
