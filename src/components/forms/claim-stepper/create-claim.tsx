@@ -127,7 +127,7 @@ const processForm: SubmitHandler<ClaimFormValues> = (data) => {
 };
 
 type FieldName = keyof ClaimFormValues;
-
+// come back to this to fix validation at the step level
 const steps = [
   {
     id: "Step 1",
@@ -170,6 +170,7 @@ const steps = [
   { id: "Step 4", name: "Complete" },
 ];
 
+// need to figure out how to trigger and handle errors
 const next = async () => {
   console.log('Next button clicked'); // Verbose logging: Button click event
 
@@ -183,8 +184,8 @@ const next = async () => {
   console.log('Form trigger output:', output); // Verbose logging: Form trigger output
 
   if (!output) {
-    console.log('Form trigger failed. Output:', output); // Verbose logging: Form trigger failed
-    return;
+    console.log('Form trigger failed. Output:', output);
+    //return;
   }
 
   if (currentStep < steps.length - 1) {
