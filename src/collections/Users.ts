@@ -66,6 +66,16 @@ export const Users: CollectionConfig = {
       hasMany: true,
     },
     {
+      name: 'userClaims',
+      label: 'User Claims',
+      admin: {
+        condition: () => false, // Modify this condition as needed
+      },
+      type: 'relationship',
+      relationTo: 'Claims', // Assuming 'Claims' is the slug of the claims collection
+      hasMany: true, // Set to true if a user can have multiple claims
+    },
+    {
       name: 'role',
       defaultValue: 'user',
       required: true,

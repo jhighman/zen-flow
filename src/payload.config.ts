@@ -1,3 +1,4 @@
+import { Claim } from './payload-types';
 import { buildConfig } from 'payload/config'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
@@ -11,6 +12,7 @@ import { ProductFiles } from './collections/ProductFile'
 import { Orders } from './collections/Orders'
 import { Tasks } from './collections/Tasks/Tasks'
 import { Queues } from './collections/Queues'
+import { Claims } from './collections/Claim'
 
 
 dotenv.config({
@@ -19,7 +21,7 @@ dotenv.config({
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-  collections: [Users, Products, Media, ProductFiles, Orders, Tasks, Queues], 
+  collections: [Users, Products, Media, ProductFiles, Orders, Tasks, Queues, Claims], 
   routes: {
     admin: '/manage',
   },
