@@ -1,0 +1,6 @@
+[
+    { "label": "Global", "value": "global" },
+    { "label": "Team", "value": "team" },
+    { "label": "User", "value": "user" }
+  ]
+  

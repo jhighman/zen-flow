@@ -38,10 +38,11 @@ export const profileSchema = z.object({
     })
   ),
 });
-
+const dateStringPattern = /^\d{2}\/\d{2}\/\d{4}$/;
 const nameRegex = /^[A-Z][a-zA-Z'’]*(-[a-zA-Z'’]+)*$/; // accepts O'Keefe
 //const nameRegex = /^[A-Z][a-zA-Z]*(-[a-zA-Z]+)*$/; // rejects O'Keefe
 export const claimSchema = z.object({
+  id: z.string(),
   firstName: z.string().min(2).max(20).regex(nameRegex, {
     message:
       "First name must begin with a capital letter, contain only letters and dashes, and be between 2 and 20 characters long",
@@ -182,7 +183,10 @@ export const claimSchema = z.object({
         message: "Invalid priority value",
       }
     ),
-    statusDate: z.date().optional(),
+    statusDate: z.string()
+    .regex(dateStringPattern, { message: "Invalid date format. Expected MM/DD/YYYY." })
+    .refine(dateString => !isNaN(Date.parse(dateString)), { message: "Invalid date." })
+    .transform(dateString => new Date(dateString)).optional(),
     createdDate: z.date().optional(),
     queueName: z.string().optional(),
 });

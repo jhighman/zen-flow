@@ -24,10 +24,9 @@ export interface Config {
 export interface User {
   id: string;
   tasks?: (string | Task)[] | null;
-  claims?: (string | Claim)[] | null;
   products?: (string | Product)[] | null;
   product_files?: (string | ProductFile)[] | null;
-  userClaims?: (string | Claim)[] | null;
+  claims?: (string | Claim)[] | null;
   role: 'admin' | 'user';
   updatedAt: string;
   createdAt: string;
@@ -129,153 +128,31 @@ export interface Media {
 }
 export interface Claim {
   id: string;
+  status?: string | null;
+  statusDate?: string | null;
+  priority?: string | null;
+  queueName?: string | null;
   user?: (string | null) | User;
   firstname?: string | null;
   middleName?: string | null;
   lastName?: string | null;
-  licenseCategory?: ('Medical' | 'Legal' | 'Insurance' | 'Financial') | null;
-  licenseType?: ('Broker' | 'Attorney' | 'Agent' | 'Fiduciary') | null;
-  licenseClass?: ('Class1' | 'Class2') | null;
+  licenseCategory?: string | null;
+  licenseType?: string | null;
+  licenseClass?: string | null;
   licenseIdentifier?: string | null;
-  licenseIssuingState?:
-    | (
-        | 'AL'
-        | 'AK'
-        | 'AZ'
-        | 'AR'
-        | 'CA'
-        | 'CO'
-        | 'CT'
-        | 'DE'
-        | 'FL'
-        | 'GA'
-        | 'HI'
-        | 'ID'
-        | 'IL'
-        | 'IN'
-        | 'IA'
-        | 'KS'
-        | 'KY'
-        | 'LA'
-        | 'ME'
-        | 'MD'
-        | 'MA'
-        | 'MI'
-        | 'MN'
-        | 'MS'
-        | 'MO'
-        | 'MT'
-        | 'NE'
-        | 'NV'
-        | 'NH'
-        | 'NJ'
-        | 'NM'
-        | 'NY'
-        | 'NC'
-        | 'ND'
-        | 'OH'
-        | 'OK'
-        | 'OR'
-        | 'PA'
-        | 'RI'
-        | 'SC'
-        | 'SD'
-        | 'TN'
-        | 'TX'
-        | 'UT'
-        | 'VT'
-        | 'VA'
-        | 'WA'
-        | 'WV'
-        | 'WI'
-        | 'WY'
-        | 'AS'
-        | 'DC'
-        | 'FM'
-        | 'GU'
-        | 'MH'
-        | 'MP'
-        | 'PW'
-        | 'PR'
-        | 'VI'
-      )
-    | null;
+  licenseIssuingState?: string | null;
   claimExpirationMonth?: number | null;
   claimExpirationYear?: number | null;
   issuer?: string | null;
-  issuingState?:
-    | (
-        | 'AL'
-        | 'AK'
-        | 'AZ'
-        | 'AR'
-        | 'CA'
-        | 'CO'
-        | 'CT'
-        | 'DE'
-        | 'FL'
-        | 'GA'
-        | 'HI'
-        | 'ID'
-        | 'IL'
-        | 'IN'
-        | 'IA'
-        | 'KS'
-        | 'KY'
-        | 'LA'
-        | 'ME'
-        | 'MD'
-        | 'MA'
-        | 'MI'
-        | 'MN'
-        | 'MS'
-        | 'MO'
-        | 'MT'
-        | 'NE'
-        | 'NV'
-        | 'NH'
-        | 'NJ'
-        | 'NM'
-        | 'NY'
-        | 'NC'
-        | 'ND'
-        | 'OH'
-        | 'OK'
-        | 'OR'
-        | 'PA'
-        | 'RI'
-        | 'SC'
-        | 'SD'
-        | 'TN'
-        | 'TX'
-        | 'UT'
-        | 'VT'
-        | 'VA'
-        | 'WA'
-        | 'WV'
-        | 'WI'
-        | 'WY'
-        | 'AS'
-        | 'DC'
-        | 'FM'
-        | 'GU'
-        | 'MH'
-        | 'MP'
-        | 'PW'
-        | 'PR'
-        | 'VI'
-      )
-    | null;
-  licenseStatus?: ('Active' | 'Expired' | 'Suspended' | 'Provisional') | null;
+  issuingState?: string | null;
+  licenseStatus?: string | null;
   expirationMonth?: number | null;
   expirationYear?: number | null;
   notesAndReferences?: string | null;
-  examinationDecision?: ('Verified' | 'Verified False' | 'Verification Pending' | 'Unverifiable') | null;
-  examinationDecisionReason?:
-    | ('No source available' | 'Ambiguous Result' | 'Source could not confirm or deny' | 'Prohibited Use')
-    | null;
+  examinationDecision?: string | null;
+  examinationDecisionReason?: string | null;
   validUntil?: string | null;
-  dueDilligenceLevel?: ('1' | '2' | '3') | null;
+  dueDilligenceLevel?: number | null;
   updatedAt: string;
   createdAt: string;
 }

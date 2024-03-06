@@ -1,0 +1,8 @@
+[
+    { "label": "Pending", "value": "pending" },
+    { "label": "Not Started", "value": "notStarted" },
+    { "label": "In Progress", "value": "inProgress" },
+    { "label": "Complete", "value": "complete" },
+    { "label": "On Hold", "value": "onHold" }
+  ]
+  

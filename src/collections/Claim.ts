@@ -4,9 +4,7 @@ import {
   } from 'payload/dist/collections/config/types'
   import { Access, CollectionConfig } from 'payload/types'
   import { Claim, User } from '../payload-types'
-  import { DueDiligenceLevelSelectField, ExaminationDecisionReasonSelectField, ExaminationDecisionSelectField, IssuingStateSelectField, LicenseCategorySelectField, LicenseClassSelectField, LicenseIssuingStateSelectField, LicenseStatusSelectField, LicenseTypeSelectField } from "../collections/fields/customSelect/field";
-
-  
+  import { DueDiligenceLevelSelectField, ExaminationDecisionReasonSelectField, ExaminationDecisionSelectField, IssuingStateSelectField, LicenseCategorySelectField, LicenseClassSelectField, LicenseIssuingStateSelectField, LicenseStatusSelectField, LicenseTypeSelectField, PrioritySelectField, QueueNameSelectField, StatusSelectField } from "../collections/fields/customSelect/field";
   
   const addUserToClaim: BeforeChangeHook<Claim> = async ({
     req,
@@ -69,6 +67,21 @@ import {
       beforeChange: [addUserToClaim],
     },
     fields: [
+      StatusSelectField,
+      {
+        name: 'statusDate',
+        label: 'Status Date',
+        type: 'date',
+        required: false,
+        admin: {
+          date: {
+            pickerAppearance: 'dayOnly',
+            displayFormat: 'd MMM yyy',
+          },
+        },
+      },
+      PrioritySelectField,
+      QueueNameSelectField,
       {
         name: 'user',
         type: 'relationship',

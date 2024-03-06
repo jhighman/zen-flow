@@ -66,7 +66,7 @@ export const Users: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'userClaims',
+      name: 'claims',
       label: 'User Claims',
       admin: {
         condition: () => false, // Modify this condition as needed

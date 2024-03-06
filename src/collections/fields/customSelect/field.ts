@@ -30,6 +30,9 @@ import { ExaminationDecisionReasonSelectComponent } from './ExaminationDecisionR
 import { DueDiligenceLevelSelectComponent } from './DueDiligenceLevelSelectComponent';
 import { LicenseStatusSelectComponent } from './LicenseStatusSelectComponent';
 import { IssuingStateSelectComponent } from './IssuingStateSelectComponent';
+import { StatusSelectComponent } from './StatusSelectComponent';
+import { PrioritySelectComponent } from './PrioritySelectComponent';
+import { QueueNameSelectComponent } from './QueueNameSelectComponent';
 
 
 export const LicenseStatusSelectField: Field = {
@@ -44,7 +47,7 @@ export const LicenseStatusSelectField: Field = {
 
 export const DueDiligenceLevelSelectField: Field = {
   name: 'dueDilligenceLevel',
-  type: 'text', // Changed to 'text' to allow for custom component usage
+  type: 'number', // Changed to 'text' to allow for custom component usage
   admin: {
     components: {
       Field: DueDiligenceLevelSelectComponent, // Specify the custom component here
@@ -93,11 +96,41 @@ export const LicenseIssuingStateSelectField: Field = {
 };
 
 export const IssuingStateSelectField: Field = {
-  name: 'licenseIssuingState',
+  name: 'issuingState',
   type: 'text',
   admin: {
     components: {
       Field: IssuingStateSelectComponent,
+    },
+  },
+};
+
+export const StatusSelectField: Field = {
+  name: 'status',
+  type: 'text', // Use 'text' to leverage custom component functionality
+  admin: {
+    components: {
+      Field: StatusSelectComponent,
+    },
+  },
+};
+
+export const PrioritySelectField: Field = {
+  name: 'priority',
+  type: 'text', // Use 'text' to leverage custom component functionality
+  admin: {
+    components: {
+      Field: PrioritySelectComponent,
+    },
+  },
+};
+
+export const QueueNameSelectField: Field = {
+  name: 'queueName',
+  type: 'text', // Use 'text' to leverage custom component functionality
+  admin: {
+    components: {
+      Field: QueueNameSelectComponent,
     },
   },
 };
