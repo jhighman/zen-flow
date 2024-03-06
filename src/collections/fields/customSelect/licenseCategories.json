@@ -1,0 +1,8 @@
+
+[
+    { "label": "Medical", "value": "Medical" },
+    { "label": "Legal", "value": "Legal" },
+    { "label": "Insurance", "value": "Insurance" },
+    { "label": "Financial", "value": "Financial" }
+  ]
+  

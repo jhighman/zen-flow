@@ -1,0 +1,7 @@
+[
+    { "label": "Active", "value": "Active" },
+    { "label": "Expired", "value": "Expired" },
+    { "label": "Suspended", "value": "Suspended" },
+    { "label": "Provisional", "value": "Provisional" }
+  ]
+  

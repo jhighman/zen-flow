@@ -5,9 +5,27 @@ import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { paymentRouter } from "./payment-router";
 
+
 export const appRouter = router({
   auth: authRouter,
   payment: paymentRouter,
+
+  getAllClaims: publicProcedure
+  .input(z.object({})) // No input required for this procedure
+  .query(async () => {
+    const payload = await getPayloadClient();
+
+    const {
+      docs: items,
+    } = await payload.find({
+      collection: "Claims",
+      limit: 10000, // Set a high limit to ensure all claims are fetched. Adjust as needed.
+    });
+
+    return {
+      items,
+    };
+  }),
 
   getInfiniteTasks: publicProcedure
     .input(

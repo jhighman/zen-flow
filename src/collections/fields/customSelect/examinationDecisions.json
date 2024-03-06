@@ -1,0 +1,7 @@
+[
+    { "label": "Verified", "value": "Verified" },
+    { "label": "Verified False", "value": "Verified False" },
+    { "label": "Verification Pending", "value": "Verification Pending" },
+    { "label": "Unverifiable", "value": "Unverifiable" }
+  ]
+  

@@ -1,0 +1,6 @@
+[
+    { "label": "Level 1 - Automated", "value": "1" },
+    { "label": "Level 2 - Human Review", "value": "2" },
+    { "label": "Level 3 - Evidence Enhanced", "value": "3" }
+  ]
+  
