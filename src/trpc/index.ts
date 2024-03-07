@@ -9,22 +9,19 @@ import { paymentRouter } from "./payment-router";
 export const appRouter = router({
   auth: authRouter,
   payment: paymentRouter,
-
   getAllClaims: publicProcedure
   .input(z.object({})) // No input required for this procedure
   .query(async () => {
-    const payload = await getPayloadClient();
-
-    const {
-      docs: items,
-    } = await payload.find({
-      collection: "Claims",
-      limit: 10000, // Set a high limit to ensure all claims are fetched. Adjust as needed.
-    });
-
-    return {
-      items,
-    };
+    try {
+      console.log("__________________ start query of claim");
+      const payload = await getPayloadClient();
+      const claimResults = await payload.find({ collection: "claims" });
+      console.log("__________________ finisk query of claim");
+      return { items: claimResults.docs };
+    } catch (error) {
+      console.error("Error fetching claims:", error);
+      throw error; // Rethrow or handle the error as appropriate
+    }
   }),
 
   getInfiniteTasks: publicProcedure

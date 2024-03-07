@@ -247,7 +247,7 @@
       "dueDilligenceLevel": 2,
       "status": "complete",
       "priority": "low",
-      "id": 10
+      "id": "10"
     },
     {
       "firstName": "Manley",
@@ -272,7 +272,7 @@
       "dueDilligenceLevel": 2,
       "status": "complete",
       "priority": "low",
-      "id": 11
+      "id": "11"
     },
     {
       "firstName": "Maxwell",
@@ -712,7 +712,7 @@
       "claimExpirationYear": 2025,
       "issuer": "redefine web-enabled applications",
       "issuingState": "North Dakota",
-      "licenseStatus": "id",
+      "licenseStatus": "word",
       "expirationMonth": 1,
       "expirationYear": 2025,
       "notesAndReferences": "de",

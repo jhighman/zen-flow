@@ -52,7 +52,7 @@ import {
    
   
   export const Claims: CollectionConfig = {
-    slug: 'Claims',
+    slug: 'claims',
     admin: {
       useAsTitle: 'name',
     },
@@ -93,7 +93,7 @@ import {
         },
       },
       {
-        name: 'firstname',
+        name: 'firstName',
         label: 'First Name',
         type: 'text',
         required: false,

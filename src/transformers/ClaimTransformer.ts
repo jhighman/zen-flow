@@ -16,7 +16,7 @@ export class ClaimTransformer implements ITransformClaim {
       statusDate: payloadClaim.statusDate ?? "",
       priority: payloadClaim.priority ?? "",
       queueName: payloadClaim.queueName ?? "",  
-      firstName: payloadClaim.firstname ?? "",
+      firstName: payloadClaim.firstName ?? "",
       middleName: payloadClaim.middleName ?? "",
       lastName: payloadClaim.lastName ?? "",
       licenseCategory: payloadClaim.licenseCategory ?? "None selected",
@@ -75,7 +75,7 @@ export class ClaimTransformer implements ITransformClaim {
     return {
       // Assuming `id` and `updatedAt`, `createdAt` fields are managed outside this transformation
       id: claim.id,
-      firstname: claim.firstName || null,
+      firstName: claim.firstName || null,
       middleName: claim.middleName || null,
       lastName: claim.lastName || null,
       licenseCategory:
@@ -94,7 +94,7 @@ export class ClaimTransformer implements ITransformClaim {
       claimExpirationMonth: claim.expirationMonth || null, // Check if naming aligns; may require adjustment
       claimExpirationYear: claim.expirationYear || null, // Same as above
       issuer: claim.issuer || null,
-      issuingState: claim.issuerState || null, // Ensure field names align between Zod and Payload types
+      issuingState: claim.issuingState || null, // Ensure field names align between Zod and Payload types
       licenseStatus:
         claim.licenseStatus !== "None selected" ? claim.licenseStatus : null,
       expirationMonth: claim.expirationMonth || null,

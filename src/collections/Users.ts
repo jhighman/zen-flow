@@ -72,7 +72,7 @@ export const Users: CollectionConfig = {
         condition: () => false, // Modify this condition as needed
       },
       type: 'relationship',
-      relationTo: 'Claims', // Assuming 'Claims' is the slug of the claims collection
+      relationTo: 'claims', // Assuming 'Claims' is the slug of the claims collection
       hasMany: true, // Set to true if a user can have multiple claims
     },
     {

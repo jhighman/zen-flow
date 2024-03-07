@@ -15,7 +15,7 @@ export interface Config {
     orders: Order;
     tasks: Task;
     queues: Queue;
-    Claims: Claim;
+    claims: Claim;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -133,7 +133,7 @@ export interface Claim {
   priority?: string | null;
   queueName?: string | null;
   user?: (string | null) | User;
-  firstname?: string | null;
+  firstName?: string | null;
   middleName?: string | null;
   lastName?: string | null;
   licenseCategory?: string | null;

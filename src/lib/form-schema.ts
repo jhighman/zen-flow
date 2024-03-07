@@ -38,7 +38,27 @@ export const profileSchema = z.object({
     })
   ),
 });
-const dateStringPattern = /^\d{2}\/\d{2}\/\d{4}$/;
+
+const dateStringPattern = /^\d{4}-\d{2}-\d{2}$/;
+const dateStringSchema = z
+  .string()
+  .regex(dateStringPattern, {
+    message: "Valid until date must be in the format 'YYYY-MM-DD'",
+  })
+  .refine(
+    (value) => {
+      const date = new Date(value);
+      return !isNaN(date.getTime());
+    },
+    {
+      message: "Invalid date.",
+    }
+  )
+  .transform((value) => new Date(value));
+// Schema to directly accept a Date object
+const dateObjectSchema = z.date();
+// Combined schema using union
+const validUntilSchema = z.union([dateStringSchema, dateObjectSchema]);
 const nameRegex = /^[A-Z][a-zA-Z'’]*(-[a-zA-Z'’]+)*$/; // accepts O'Keefe
 //const nameRegex = /^[A-Z][a-zA-Z]*(-[a-zA-Z]+)*$/; // rejects O'Keefe
 export const claimSchema = z.object({
@@ -80,7 +100,7 @@ export const claimSchema = z.object({
       message: "License class must be selected",
     })
     .default("None selected"),
-  licenseIdentifier: z.string().min(1),
+  licenseIdentifier: z.string().optional(),
   licenseIssuingState: z
     .string()
     .optional()
@@ -88,22 +108,22 @@ export const claimSchema = z.object({
       message: "License issuing state must be selected",
     })
     .default("None selected"),
-  expirationMonth: z
+  claimExpirationMonth: z
     .number()
     .int()
     .min(1)
-    .max(12, { message: "Month must be between 1 and 12" }),
-  expirationYear: z
+    .max(12, { message: "Month must be between 1 and 12" })
+    .optional(),
+  claimExpirationYear: z
     .number()
     .int()
     .min(new Date().getFullYear())
-    .max(new Date().getFullYear() + 1, {
+    .max(new Date().getFullYear() + 10, {
       message: "Year must be current year or next year",
-    }),
-  issuer: z
-    .string()
-    .min(3, { message: "Issuer must be at least 3 characters" }),
-  issuerState: z.string().optional(),
+    })
+    .optional(),
+  issuer: z.string().optional(),
+  issuingState: z.string().optional(),
   licenseStatus: z
     .string()
     .optional()
@@ -111,6 +131,20 @@ export const claimSchema = z.object({
       message: "License status must be selected",
     })
     .default("None selected"),
+  expirationMonth: z
+    .number()
+    .int()
+    .min(1)
+    .max(12, { message: "Month must be between 1 and 12" })
+    .optional(),
+  expirationYear: z
+    .number()
+    .int()
+    .min(new Date().getFullYear())
+    .max(new Date().getFullYear() + 10, {
+      message: "Year must be current year or next year",
+    })
+    .optional(),
   notesAndReferences: z.string().optional(),
   examinationDecision: z
     .string()
@@ -125,24 +159,6 @@ export const claimSchema = z.object({
       message: "Reason is required when Examination Decision is not 'none'",
       path: ["reason"],
     }),
-  validUntil: z
-    .string()
-    .optional()
-    .refine(
-      (value) => {
-        if (!value) return true; // If the value is empty (null or undefined), it's considered valid
-        const today = new Date();
-        const [month, day, year] = value.split("/").map(Number);
-        const inputDate = new Date(year, month - 1, day); // month is zero-based in JavaScript Date constructor
-
-        // Check if inputDate is a valid date and it's in the future
-        return !isNaN(inputDate.getTime()) && inputDate > today;
-      },
-      {
-        message:
-          "Valid until date must be in the future and in the format 'mm/dd/yyyy'",
-      }
-    ),
   dueDilligenceLevel: z
     .number()
     .optional()
@@ -183,12 +199,10 @@ export const claimSchema = z.object({
         message: "Invalid priority value",
       }
     ),
-    statusDate: z.string()
-    .regex(dateStringPattern, { message: "Invalid date format. Expected MM/DD/YYYY." })
-    .refine(dateString => !isNaN(Date.parse(dateString)), { message: "Invalid date." })
-    .transform(dateString => new Date(dateString)).optional(),
-    createdDate: z.date().optional(),
-    queueName: z.string().optional(),
+  statusDate: validUntilSchema.optional(),
+  //validUntil: validUntilSchema.optional(),
+  createdAt: z.date().optional(),
+  queueName: z.string().optional(),
 });
 
 // Define the type for the claim object using `.parse()` from Zod
