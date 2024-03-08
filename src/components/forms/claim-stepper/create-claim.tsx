@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { claimSchema, type ClaimFormValues } from "@/lib/form-schema";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,9 +56,9 @@ export const CreateClaimOne: React.FC<ClaimFormType> = ({
     const nextYearDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate());
     
     const defaultValues = {
-      firstname: "",
+      firstName: "",
       middleName: "",
-      lastname: "",
+      lastName: "",
       licenseCategory: "None", 
       licenseType: "None", 
       licenseClass: "None", 
@@ -82,11 +82,17 @@ const form = useForm<z.infer<typeof claimSchema>>({
   mode: "onChange",
 });
 
-const {
-  control,
-  formState: { errors },
-} = form; 
-
+const { control, formState: { errors }, watch } = form;
+// Watch the firstname and lastname fields
+const watchedFirstName = watch("firstName");
+const watchedLastName = watch("lastName");
+const watchedLicenseCategory = watch("licenseCategory");
+const watchedLicenseType = watch("licenseType");
+const watchedLicenseClass = watch("licenseClass");
+const watchedLicenseStatus = watch("licenseStatus");
+const watchedLicenseIdentifier = watch("licenseIdentifier");
+const watchedExpirationMonth = watch("expirationMonth");
+const watchedExpirationYear = watch("expirationYear");
 
 
 const onSubmit = async (data: ClaimFormValues) => {
@@ -128,14 +134,17 @@ const processForm: SubmitHandler<ClaimFormValues> = (data) => {
 
 type FieldName = keyof ClaimFormValues;
 // come back to this to fix validation at the step level
-const steps = [
+
+const [steps, setSteps] = useState([
   {
     id: "Step 1",
     name: "Attesting Information",
+    title: "Enter Attesting Information",
+    description: "Provide basic attesting information for the claim.",
     fields: [
-      "firstname",
+      "firstName",
       "middleName",
-      "lastname",
+      "lastName",
       "licenseCategory",
       "licenseType",
       "licenseClass",
@@ -148,6 +157,8 @@ const steps = [
   {
     id: "Step 2",
     name: "Corroborating Information",
+    title: "Corroborate Your Information",
+    description: "Corroborate the provided information with additional details.",
     fields: [
       "issuer",
       "issuingState", // Corrected from issuerState to match the default values object
@@ -160,6 +171,8 @@ const steps = [
   {
     id: "Step 3",
     name: "Decisioning Information", // Corrected a typo from "Decisoning" to "Decisioning"
+    title: "Decisioning",
+    description: "Review decisioning information related to your claim.",
     fields: [
       "examinationDecision",
       "examinationDecisionReason", // Corrected from reason to match your default values
@@ -170,6 +183,8 @@ const steps = [
   {
     id: "Step 4",
     name: "Complete",
+    title: "Complete Your Claim",
+    description: "Finalize the claim process.",
     fields: [
       "status",
       "statusDate",
@@ -177,7 +192,39 @@ const steps = [
       "createdAt", // Added these fields based on your last code snippet to capture all relevant information before completing the process.
     ],
   },
-];
+]);
+
+useEffect(() => {
+  // Only proceed if we are about to move to Step 2
+  if (currentStep === 1) {
+    const newSteps = steps.map((step, index) => {
+      // Targeting Step 2 specifically, assuming it's at index 1
+      if (index === 1) {
+        let newTitle = "Corroborate Your Information"; // Default title for Step 2
+        let newDescription = "Claim details: "; // Base part of the new description
+
+        // Check if lastName has been provided and is different from the default
+        if (watchedLastName && watchedLastName !== "") {
+          newTitle = `${watchedLastName}, ${watchedFirstName}`; // Dynamically set title
+        }
+
+        // Dynamically construct the new description
+        newDescription += `${watchedLicenseCategory} < ${watchedLicenseType} < ${watchedLicenseClass} < ${watchedLicenseIdentifier} < ${watchedExpirationMonth}-${watchedExpirationYear}`;
+
+        return { ...step, title: newTitle, description: newDescription }; // Update the title and description for Step 2
+      }
+      return step; // Return other steps unchanged
+    });
+
+    setSteps(newSteps); // Update the steps state with the new titles and descriptions
+  }
+}, [
+  watchedFirstName, watchedLastName, currentStep, 
+  watchedLicenseCategory, watchedLicenseType, watchedLicenseStatus, 
+  watchedLicenseIdentifier, watchedExpirationMonth, watchedExpirationYear,watchedLicenseClass,
+  steps, setSteps
+]);
+
 
 
 // need to figure out how to trigger and handle errors
@@ -220,10 +267,11 @@ const prev = () => {
   }
 };
 
+const currentStepInfo = steps[currentStep];
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
+      <Heading title={currentStepInfo.title} description={currentStepInfo.description} />
         {initialData && (
           <Button
             disabled={loading}
@@ -284,9 +332,9 @@ const prev = () => {
           >
             {currentStep === 0 && (
               <>
-                <TextInputComponent key="firstName" name="firstname" placeholder="First Name" control={control} loading={loading} />
+                <TextInputComponent key="firstName" name="firstName" placeholder="First Name" control={control} loading={loading} />
                 <TextInputComponent key="middleName" name="middleName" placeholder="Middle Name" control={control} loading={loading} />
-                <TextInputComponent key="lastName" name="lastname" placeholder="Last Name" control={control} loading={loading} />
+                <TextInputComponent key="lastName" name="lastName" placeholder="Last Name" control={control} loading={loading} />
                 <SelectLicenseCategoryComponent control={control} loading={loading}></SelectLicenseCategoryComponent>
                 <SelectLicenseTypeComponent control={control} loading={loading}></SelectLicenseTypeComponent>
                 <SelectLicenseClassComponent control={control} loading={loading}></SelectLicenseClassComponent>

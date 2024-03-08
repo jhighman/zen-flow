@@ -8,7 +8,7 @@ const SelectLicenseClassComponent: React.FC<{ control: any; loading: boolean }> 
     { id: 'Class2', name: 'Class2' },
   ];
 
-  return <SelectInputComponent name="License Status" countries={licenseStatusOptions} control={control} loading={loading} />;
+  return <SelectInputComponent name="licenseClass" countries={licenseStatusOptions} control={control} loading={loading} />;
 };
 
 export default SelectLicenseClassComponent;

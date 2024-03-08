@@ -10,7 +10,7 @@ const SelectLicenseStatusComponent: React.FC<{ control: any; loading: boolean }>
     { id: 'Provisional', name: 'Provisional' },
   ];
 
-  return <SelectInputComponent name="License Status" countries={licenseStatusOptions} control={control} loading={loading} />;
+  return <SelectInputComponent name="licenseStatus" countries={licenseStatusOptions} control={control} loading={loading} />;
 };
 
 export default SelectLicenseStatusComponent;

@@ -10,7 +10,7 @@ const SelectLicenseCategoryComponent: React.FC<{ control: any; loading: boolean 
     { id: 'Financial', name: 'Financial' },
   ];
 
-  return <SelectInputComponent name="License Category" countries={licenseCategoryOptions} control={control} loading={loading} />;
+  return <SelectInputComponent name="licenseCategory" countries={licenseCategoryOptions} control={control} loading={loading} />;
 };
 
 export default SelectLicenseCategoryComponent;

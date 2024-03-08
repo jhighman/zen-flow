@@ -69,6 +69,9 @@ export const claimSchema = z.object({
   middleName: z
   .string()
   .optional(),
+  lastName: z
+  .string()
+  .optional(),
   licenseCategory: z
     .string()
     .optional(),
