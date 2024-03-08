@@ -4,6 +4,7 @@ import { publicProcedure, router } from "./trpc";
 import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { paymentRouter } from "./payment-router";
+import { claimSchema } from "@/lib/form-schema";
 
 
 export const appRouter = router({
@@ -13,16 +14,16 @@ export const appRouter = router({
   .input(z.object({})) // No input required for this procedure
   .query(async () => {
     try {
-      console.log("__________________ start query of claim");
       const payload = await getPayloadClient();
       const claimResults = await payload.find({ collection: "claims" });
-      console.log("__________________ finisk query of claim");
       return { items: claimResults.docs };
     } catch (error) {
       console.error("Error fetching claims:", error);
       throw error; // Rethrow or handle the error as appropriate
     }
   }),
+
+
 
   getInfiniteTasks: publicProcedure
     .input(

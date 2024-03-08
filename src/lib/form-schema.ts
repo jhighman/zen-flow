@@ -63,51 +63,25 @@ const nameRegex = /^[A-Z][a-zA-Z'’]*(-[a-zA-Z'’]+)*$/; // accepts O'Keefe
 //const nameRegex = /^[A-Z][a-zA-Z]*(-[a-zA-Z]+)*$/; // rejects O'Keefe
 export const claimSchema = z.object({
   id: z.string(),
-  firstName: z.string().min(2).max(20).regex(nameRegex, {
-    message:
-      "First name must begin with a capital letter, contain only letters and dashes, and be between 2 and 20 characters long",
-  }),
+  firstName: z
+  .string()
+  .optional(),
   middleName: z
-    .string()
-    .max(20)
-    .optional()
-    .refine((value) => !value || nameRegex.test(value), {
-      message:
-        "Middle name must begin with a capital letter, contain only letters and dashes, and be at most 20 characters long",
-    }),
-  lastName: z.string().min(2).max(20).regex(nameRegex, {
-    message:
-      "Last name must begin with a capital letter, contain only letters and dashes, and be between 2 and 20 characters long",
-  }),
+  .string()
+  .optional(),
   licenseCategory: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "License category must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   licenseType: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "License type must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   licenseClass: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "License class must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   licenseIdentifier: z.string().optional(),
   licenseIssuingState: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "License issuing state must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   claimExpirationMonth: z
     .number()
     .int()
@@ -126,11 +100,7 @@ export const claimSchema = z.object({
   issuingState: z.string().optional(),
   licenseStatus: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "License status must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   expirationMonth: z
     .number()
     .int()
@@ -140,65 +110,25 @@ export const claimSchema = z.object({
   expirationYear: z
     .number()
     .int()
-    .min(new Date().getFullYear())
-    .max(new Date().getFullYear() + 10, {
-      message: "Year must be current year or next year",
-    })
+    .min(1950)
+    .max(2050, { message: "Month must be between 1 and 12" })
     .optional(),
   notesAndReferences: z.string().optional(),
   examinationDecision: z
     .string()
-    .optional()
-    .refine((value) => value !== "None selected", {
-      message: "Examination decision must be selected",
-    })
-    .default("None selected"),
+    .optional(),
   examinationDecisionReason: z
     .string()
-    .refine((value) => value.trim().length > 0, {
-      message: "Reason is required when Examination Decision is not 'none'",
-      path: ["reason"],
-    }),
+    .optional(),
   dueDilligenceLevel: z
     .number()
-    .optional()
-    .refine((value) => value !== 0, {
-      message: "Due diligence level must be selected",
-    })
-    .default(2),
+    .optional(),
   status: z
     .string()
-    .optional()
-    .refine(
-      (value) => {
-        // Check if value is defined and included in the allowed status values
-        return (
-          value !== undefined &&
-          [
-            "pending",
-            "notStarted",
-            "inProgress",
-            "complete",
-            "onHold",
-          ].includes(value)
-        );
-      },
-      {
-        message: "Invalid status value",
-      }
-    ),
+    .optional(),
   priority: z
     .string()
-    .optional()
-    .refine(
-      (value) => {
-        // Check if value is defined and included in the allowed priority values
-        return value !== undefined && ["low", "medium", "high"].includes(value);
-      },
-      {
-        message: "Invalid priority value",
-      }
-    ),
+    .optional(),
   statusDate: validUntilSchema.optional(),
   //validUntil: validUntilSchema.optional(),
   createdAt: z.date().optional(),

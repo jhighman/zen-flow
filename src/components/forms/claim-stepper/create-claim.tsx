@@ -56,25 +56,25 @@ export const CreateClaimOne: React.FC<ClaimFormType> = ({
     const nextYearDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate());
     
     const defaultValues = {
-        firstname: "",
-        middleName: "",
-        lastname: "",
-        licenseCategory: "None", 
-        licenseType: "None", 
-        licenseClass: "None", 
-        licenseIdentifier: "",
-        licenseIssuingState: "None", 
-        expirationMonth: currentDate.getMonth() + 1, // Deriving from current date
-        expirationYear: currentDate.getFullYear(), // Deriving from current date
-        issuer: "",
-        issuerState: "None", 
-        licenseStatus: "None", 
-        notesAndReferences: "",
-        examinationDecision: "None", 
-        reason: "",
-        validUntil: nextYearDate, // Setting to one year in the future
-        dueDilligenceLevel: "None", 
-    };
+      firstname: "",
+      middleName: "",
+      lastname: "",
+      licenseCategory: "None", 
+      licenseType: "None", 
+      licenseClass: "None", 
+      licenseIdentifier: "",
+      licenseIssuingState: "None", 
+      expirationMonth: currentDate.getMonth() + 1, // Deriving from current date
+      expirationYear: currentDate.getFullYear(), // Deriving from current date
+      issuer: "",
+      issuerState: "None", 
+      licenseStatus: "None", 
+      notesAndReferences: "",
+      examinationDecision: "None", 
+      reason: "",
+      validUntil: nextYearDate, // Setting to one year in the future
+      dueDilligenceLevel: 1, 
+  };
 
 const form = useForm<z.infer<typeof claimSchema>>({
   resolver: zodResolver(claimSchema),
@@ -141,8 +141,8 @@ const steps = [
       "licenseClass",
       "licenseIdentifier",
       "licenseIssuingState",
-      "expirationMonth",
-      "expirationYear",
+      "claimExpirationMonth", // Added to match the fields in the HTML structure
+      "claimExpirationYear", // Added to match the fields in the HTML structure
     ],
   },
   {
@@ -150,25 +150,35 @@ const steps = [
     name: "Corroborating Information",
     fields: [
       "issuer",
-      "issuerState",
+      "issuingState", // Corrected from issuerState to match the default values object
       "licenseStatus",
-      "expirationMonth",
-      "expirationYear",
+      "expirationMonth", // Note: Listed again, ensure this is intentional and not a duplication error
+      "expirationYear", // Note: Listed again, ensure this is intentional and not a duplication error
       "notesAndReferences",
     ],
   },
   {
     id: "Step 3",
-    name: "Decisoning Information",
+    name: "Decisioning Information", // Corrected a typo from "Decisoning" to "Decisioning"
     fields: [
       "examinationDecision",
-      "reason",
-      "validUntil",
+      "examinationDecisionReason", // Corrected from reason to match your default values
       "dueDilligenceLevel",
+      // Removed validUntil as it does not directly match any field from the provided HTML or default values structure
     ],
   },
-  { id: "Step 4", name: "Complete" },
+  {
+    id: "Step 4",
+    name: "Complete",
+    fields: [
+      "status",
+      "statusDate",
+      "queueName",
+      "createdAt", // Added these fields based on your last code snippet to capture all relevant information before completing the process.
+    ],
+  },
 ];
+
 
 // need to figure out how to trigger and handle errors
 const next = async () => {
@@ -288,7 +298,7 @@ const prev = () => {
             {currentStep === 1 && (
               <>
                 <SelectUSStateComponent control={control} loading={loading}></SelectUSStateComponent>
-                <TextInputComponent key="issuer" name="firstname" placeholder="firstname" control={control} loading={loading} />
+                <TextInputComponent key="issuer" name="issuer" placeholder="issuer" control={control} loading={loading} />
                 <TextInputComponent key="issuerState" name="issuerState" placeholder="issuerState" control={control} loading={loading} />
                 <SelectLicenseStatusComponent control={control} loading={loading}></SelectLicenseStatusComponent>
                 <TextInputComponent key="notesAndReferences" name="notesAndReferences" placeholder="" control={control} loading={loading} />
@@ -303,12 +313,12 @@ const prev = () => {
               </>
             )}
             {currentStep === 3 && (
-              <div>
-                <h1>Completed</h1>
-                <pre className="whitespace-pre-wrap">
-                  {JSON.stringify(data)}
-                </pre>
-              </div>
+              <>
+                <TextInputComponent key="status" name="status" placeholder="Status" control={control} loading={loading} />
+                <DateInputComponent key="statusDate" name="statusDate" placeholder="Status Date" control={control} loading={loading} />
+                <TextInputComponent key="queueName" name="queueName" placeholder="Queue Name" control={control} loading={loading} />
+                <DateInputComponent key="createdAt" name="createdAt" placeholder="Created At" control={control} loading={loading} />
+              </>
             )}
           </div>
           </form>

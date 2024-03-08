@@ -25,36 +25,24 @@ import {
   const isAdminOrHasAccess =
   (): Access =>
   ({ req: { user: _user } }) => {
-    const user = _user as User | undefined
+    const user = _user as User | undefined;
 
-    if (!user) return false
-    if (user.role === 'admin') return true
+    // If no user is present, access is denied
+    if (!user) return false;
 
-    const userClaimIDs = (user.claims || []).reduce<
-      Array<string>
-    >((acc, claim) => {
-      if (!claim) return acc
-      if (typeof claim === 'string') {
-        acc.push(claim)
-      } else {
-        acc.push(claim.id)
-      }
+    // If the user is an admin, access is granted
+    if (user.role === 'admin') return true;
 
-      return acc
-    }, [])
+    // For users that are not admins, access is denied
+    return false;
+  };
 
-    return {
-      id: {
-        in: userClaimIDs,
-      },
-    }
-  }
    
   
   export const Claims: CollectionConfig = {
     slug: 'claims',
     admin: {
-      useAsTitle: 'name',
+      useAsTitle: 'lastName',
     },
     access: {
       read: isAdminOrHasAccess(),
